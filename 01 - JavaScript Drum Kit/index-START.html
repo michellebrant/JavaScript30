@@ -97,6 +97,7 @@ add the class to that div
   })
   // THIS WAS MY ORIGINAL ANSWER
   window.addEventListener('keyup', function(e){
+    if (!audio) return;
     const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
     key.classList.remove('playing')
   })
