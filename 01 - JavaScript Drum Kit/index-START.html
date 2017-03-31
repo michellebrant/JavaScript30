@@ -7,7 +7,16 @@
 </head>
 <body>
 
-
+<!-- data keys are data attributes you can pass from code tocode -->
+<!-- so that is useful -->
+<!-- we have source and class but ppl started making their own
+so people started making data attributes
+so you ahve to make it data-SOMETHIGN
+so here it's data-key
+along with the audio, so when someone hits that key
+it will find the right audio element and itll find the key, div and
+add the class to that div
+ -->
   <div class="keys">
     <div data-key="65" class="key">
       <kbd>A</kbd>
@@ -58,6 +67,51 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+  window.addEventListener('keydown', function(e){
+    // console.log(e)
+    // console logging tells the event
+    // what key it hit etc.
+    // gives u the key code etc.
+    // console.log(e.keyCode)
+    // this will log the key code! v cool :)
+    //now we need to listen for an audio event
+    //we will only be selecting one, hence
+    //query selector no select all
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+    // console.log(key)
+    // console.log(audio)
+    // this will console log the audio we called ^
+    //if you hit a key we dont have something for, itll be null, so:
+    if (!audio) return; //this will just stop the function from runnign
+    //if there is a button without a corresponding noise
+    audio.currentTime = 0; //rewinds it to the beginning so we can hit
+    //over and over
+    audio.play();
+    //if you call .play on an audio element tahts already playing
+    //it wont call again, so then you cant do repeated
+    //want it to work in succession
+    //now we need to add the class
+    key.classList.add('playing');
+    //this is the same thing as key.addClass in jQuery!
+  })
+  // THIS WAS MY ORIGINAL ANSWER
+  window.addEventListener('keyup', function(e){
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+    key.classList.remove('playing')
+  })
+
+//wes's way: we didnt like it, its below
+  // const keys = document.querySelectorAll('.key');
+
+  // keys.forEach(key => key.addEventListener('transitioned', removeTransition));
+//this listens for transitioned end event
+  // function removeTransition(e){
+  //   if(e.propertyName !=='transition') return;  //skip it
+  //   transform
+  //   this.classList.remove('playing')
+
+  // }
 
 </script>
 
