@@ -21,11 +21,32 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
-
+/* New - CSS variables can be updated with JS!!!
+that's pretty cool :)
+CSS variables work by declaring them on some sort of element
+right nowe we're doing it on root, the highest you can!
+set defaults; */
     /*
       misc styles, nothing to do with CSS variables
     */
 
+    :root{
+      --base: #ffc600;
+      --spacing: 10px;
+      --blur: 10px;
+    }
+
+    img {
+      padding:  var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+      /* this is hwo you do it in css with the dashes
+       */
+    }
+
+    .hl{
+      color: var(--base);
+    }
     body {
       text-align: center;
     }
@@ -48,6 +69,28 @@
   </style>
 
   <script>
+    const inputs = document.querySelectorAll('.controls input')
+    // query selector gives you a node list!
+    // itlooks like an array but its NOT an array!
+    // difference between node list an array:
+    // an array has all kinds of methods for dealing with it
+    // like map and reduce
+    // but for node list you only have etnries
+    // for each keys and values :(
+    // but with an array
+    // you have all tht good good shit)
+    function handleUpdate(){
+      const suffix = this.dataset.sizing || '';
+      document.documentElement.style.setProperty(`--${this.name}`, this.value+suffix);
+      // what is this.dataset?
+      //an object that contains all the data
+      // attributes from that specific element!
+
+    }
+
+    inputs.forEach(input => input.addEventListener('change', handleUpdate))
+    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+
   </script>
 
 </body>
